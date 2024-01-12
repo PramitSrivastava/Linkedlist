@@ -1,1 +1,13 @@
 
+
+    def pushAtEnding(self, data):
+        new_Node = Node(data)
+        if not self.head:
+            self.head = new_Node
+            return
+
+        temp = self.head
+        while temp.next:
+            temp = temp.next
+
+        temp.next = new_Node
