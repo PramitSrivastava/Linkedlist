@@ -1,37 +1,52 @@
-public class Linkist{
-    public static Node createLinkedList()
-    {
-        Node n1 = new Node(10);
-        Node n2 = new Node(20);
-        Node n3 = new Node(30);
-        Node n4 = new Node(40);
-        n1.next = n2;
-        n2.next = n3;
-        n3.next = n4;
+import java.util.Scanner;
 
-        return n1;
+public class linklist { 
+    static Node<Integer> head; // Declare head variable
+
+    public static Node<Integer> takeInput() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the node values (-1 to end):");
+        
+        int data = sc.nextInt();
+        Node<Integer> head = null; // Initialize head
+        Node<Integer> tail = null; // Initialize tail
+        
+        while (data != -1) {
+            Node<Integer> currNode = new Node<Integer>(data);
+            
+            if (head == null) {
+                head = currNode;
+                tail = currNode;
+            } else {
+              
+                tail.next = currNode;
+                tail = tail.next;
+            }
+            data = sc.nextInt(); // Read next input
+        }
+        return head;
     }
 
-    public static void printLinkedList(Node head) {
-        Node temp = head;
+    public static void printLinkedList(Node<Integer> head) {
+        Node<Integer> temp = head;
         while (temp != null) {
-            System.out.print(temp.data + " ");
+            System.out.print(temp.data + "  ");
             temp = temp.next;
         }
-        System.out.println(); // Add a new line after printing all elements
     }
-    public static void main(String args[])
-    {
-       Node head = createLinkedList();
-       printLinkedList(head);
+
+    public static void main(String[] args) {
+        Node<Integer> head = takeInput();
+        printLinkedList(head);
     }
 }
 
-class Node{
-    int data;
-    Node next;
-    Node(int data){
+class Node<T> {
+    T data;
+    Node<T> next;
+
+    Node(T data) {
         this.data = data;
-        this.next=null;
+        this.next = null;
     }
 }
