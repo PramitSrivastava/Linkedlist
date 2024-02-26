@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+public class Linkist { 
+    static Node<Integer> head; // Declare head variable
+    public static Node<Integer> takeInput() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the node values (-1 to end):");
+        
+        int data = sc.nextInt();
+        Node<Integer> head = null; // Initialize head
+        Node<Integer> tail = null; // Initialize head
+        
+        while (data != -1) {
+            Node<Integer> currNode = new Node<Integer>(data);
+            
+            if (head == null) {
+                head = currNode;
+                tail = currNode;
+            } else {
+                // Node<Integer> tail = head;
+                while (tail.next != null) {
+                    tail = tail.next;
+                }
+                tail.next = currNode;
+                tail = tail.next; // tail = currNode;
+            }
+            data = sc.nextInt(); // Read next input
+        }
+        return head;
+    }
+    public static Node<Integer> insertSpecific(Node<Integer> head , int data , int index)
+    {
+        Node<Integer> newNode = new Node<Integer>(data);
+        Node<Integer> current = head;
+        int target = 0;
+        while (current != null && target < index - 1) {
+            current = current.next;
+            target++;
+        }
+        newNode.next = current.next;
+        current.next = newNode;
+        return head;
+    }
+    public static void printLinkedList(Node<Integer> head) {
+        Node<Integer> temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + "  ");
+            temp = temp.next;
+        }
+        System.out.println();
+    }
+    public static void main(String[] args) {
+        Node<Integer> head = takeInput();
+        printLinkedList(head);
+
+        System.out.println("After inserting at specific");
+        
+        head = insertSpecific(head, 10 ,2);
+        printLinkedList(head);
+    }
+}
+class Node<T> {
+    T data;
+    Node<T> next;
+
+    Node(T data) {
+        this.data = data;
+        this.next = null;
+    }
+}
